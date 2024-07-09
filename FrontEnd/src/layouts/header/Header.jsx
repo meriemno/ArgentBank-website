@@ -1,9 +1,25 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logout } from '../../store/userSlice';
 import './header.css';
 import logo from '../../images/argentBankLogo.webp';
+import { useNavigate } from 'react-router-dom';
+
 
 function Header() {
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
+  const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout());
+    navigate('/SignIn');
+  };
+
   return (
     <nav className="main-nav">
       <Link className="main-nav-logo" to="/">
@@ -15,10 +31,21 @@ function Header() {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div>
-        <Link className="main-nav-item" to="/SignIn">
-          <i className="fa fa-user-circle"></i>
-          Sign In
-        </Link>
+        {isAuthenticated ? (
+          <div> 
+            <i className="fa fa-user-circle"></i>
+            <Link className="main-nav-item " to="/Profile">{userInfo?.firstName} </Link>
+            <Link className="main-nav-item" onClick={handleLogout}>
+              <i className="fa fa-sign-out"></i>
+              Sign Out
+            </Link>
+          </div>
+        ) : (
+          <Link className="main-nav-item" to="/SignIn">
+            <i className="fa fa-user-circle"></i>
+            Sign In
+          </Link>
+        )}
       </div>
     </nav>
   );

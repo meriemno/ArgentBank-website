@@ -1,0 +1,44 @@
+/* src/pages/profile.css */
+
+.disabled-input {
+    background-color: #e0e0e0; /* couleur grise pour indiquer que le champ est désactivé */
+    color: #757575; /* couleur du texte grise */
+    cursor: not-allowed; /* curseur désactivé */
+   
+  }
+  
+  .edit-form .input-wrapper {
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+
+  }
+  
+  .edit-button {
+    margin-right: 1em;
+    border-radius: 5px;
+    height: 60px;
+    width: 20%;
+    border: none;
+    cursor: pointer;
+  }
+  .edit-form {
+    width: 700px;
+    margin-inline:auto;
+    
+  }
+  .edit-form .input-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  
+  
+  }
+  .input-style{
+    border: none;
+    border-radius: 5px;
+    width: 20%;
+    height: 30px;
+  }
+  

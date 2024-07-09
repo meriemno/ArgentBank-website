@@ -19,7 +19,7 @@ module.exports.createUser = async serviceData => {
       lastName: serviceData.lastName,
       userName: serviceData.userName
     })
-  console.log(newUser)
+    console.log(newUser)
     let result = await newUser.save()
 
     return result
@@ -65,8 +65,13 @@ module.exports.loginUser = async serviceData => {
       process.env.SECRET_KEY || 'default-secret-key',
       { expiresIn: '1d' }
     )
-
-    return { token }
+    // recupere les infos de l'utilisateur
+    return {
+      token,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      userName: user.userName,
+    };
   } catch (error) {
     console.error('Error in userService.js', error)
     throw new Error(error)
