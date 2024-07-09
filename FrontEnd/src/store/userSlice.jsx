@@ -28,7 +28,7 @@ const userSlice = createSlice({
     loginSuccess: (state, action) => {
       console.log('loginSuccess action received:', action); // Log pour vérifier l'action
       state.token = action.payload.token;
-      state.userInfo = action.payload.userInfo; 
+      state.userInfo = action.payload.userInfo;
       state.isAuthenticated = true;
     },
     logout: (state) => {
@@ -36,13 +36,14 @@ const userSlice = createSlice({
       state.token = null;
       state.isAuthenticated = false;
     },
+  },
+    
     extraReducers: (builder) => {
       builder.addCase(updateUser.fulfilled, (state, action) => {
-        state.userInfo = { ...state.userInfo, userName: action.payload.userName };
+        state.userInfo = { ...state.userInfo, userName: action.payload.userName }; // Mettre à jour le username de l'utilisateur
       });
     },
-  },
 });
 
-export const { loginSuccess, logout} = userSlice.actions;
+export const { loginSuccess, logout } = userSlice.actions;
 export default userSlice.reducer;

@@ -1,14 +1,33 @@
 // src/pages/Profile.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUser } from '../../store/userSlice';
 import './formEdit.css';
+import { useNavigate } from 'react-router-dom';
+
+
 
 function FormEdit() {
   const userInfo = useSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [newUsername, setNewUsername] = useState(userInfo ? userInfo.userName : '');
   const [isEditing, setIsEditing] = useState(false);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      console.log('User not authenticated');
+      navigate('/SignIn');
+    }
+  }, [isAuthenticated, navigate]);
+
+  useEffect(() => {
+    if (userInfo) {
+      setNewUsername(userInfo.userName);
+    }
+  }, [userInfo]);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -19,12 +38,15 @@ function FormEdit() {
     setNewUsername(userInfo.userName); // réinitialisation ldu nom d'utilisateur 
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
     // appel API pour mettre à jour le nom d'utilisateur
-    dispatch(updateUser({ userName: newUsername }));
+    await dispatch(updateUser({ userName: newUsername }));
     setIsEditing(false);
   };
-
+  if (!userInfo) {    
+    return null; 
+  }
+  
   return (
     <>
       
@@ -69,12 +91,12 @@ function FormEdit() {
               />
               </div>
             </div>
-            <button className="edit-button" onClick={handleSaveClick}>Save</button>
+            <button className="edit-button"  onClick={handleSaveClick}>Save</button>
             <button className="edit-button" onClick={handleCancelClick}>Cancel</button>
           </div>
         ) : (
           <div>
-            <button className="edit-button" onClick={handleEditClick}>Edit Username</button>
+            <button className="edit-button" type="button" onClick={handleEditClick}>Edit Username</button>
           </div>
         )}
      

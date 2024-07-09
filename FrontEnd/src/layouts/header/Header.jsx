@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout } from '../../store/userSlice';
+import { logout, updateUser } from '../../store/userSlice';
 import './header.css';
 import logo from '../../images/argentBankLogo.webp';
 import { useNavigate } from 'react-router-dom';
@@ -34,7 +34,7 @@ function Header() {
         {isAuthenticated ? (
           <div> 
             <i className="fa fa-user-circle"></i>
-            <Link className="main-nav-item " to="/Profile">{userInfo?.firstName} </Link>
+            <Link className="main-nav-item " to="/Profile" >{userInfo?.userName} </Link>
             <Link className="main-nav-item" onClick={handleLogout}>
               <i className="fa fa-sign-out"></i>
               Sign Out
