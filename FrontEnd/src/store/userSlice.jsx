@@ -37,7 +37,7 @@ const userSlice = createSlice({
       state.isAuthenticated = false;
     },
   },
-    
+    //update username dans le redux
     extraReducers: (builder) => {
       builder.addCase(updateUser.fulfilled, (state, action) => {
         state.userInfo = { ...state.userInfo, userName: action.payload.userName }; // Mettre à jour le username de l'utilisateur
