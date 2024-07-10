@@ -1,7 +1,7 @@
 import React from "react"
 import Footer from "../../layouts/footer/Footer"
 import Header from "../../layouts/header/Header"
-import Hero from "../../composants/hero/Hero"
+import Banner from "../../composants/banner/Banner"
 import Features from "../../composants/features/Features"
 import iconChat from "../../images/icon-chat.webp"
 import iconMoney from "../../images/icon-money.webp"
@@ -13,7 +13,7 @@ function Home() {
         <>
             <Header />
 
-            <Hero />
+            <Banner />
             <section className="features">
                 <h2 className="sr-only">Features</h2>
                 <Features imgSrc={iconChat}
