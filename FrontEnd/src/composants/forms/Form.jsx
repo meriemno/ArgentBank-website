@@ -8,9 +8,11 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);// State pour le 'remember me'
   const [error, setError] = useState(null);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // Hook useDispatch pour la mise à jour du store
   const navigate = useNavigate();// Hook useNavigate pour la redirection
+
   const handleLogin = async (e) => {
     e.preventDefault(); // Empêche la soumission du formulaire par défaut
     try {
@@ -18,6 +20,14 @@ const Login = () => {
       console.log('Token received:', token); // Log pour vérifier le token
       console.log('User info received:', userInfo); // Log pour vérifier l'utilisateur
       dispatch(loginSuccess({ token, userInfo }));
+      // Stockage des informations d'authentification en fonction de la case "Remember me"
+      if (rememberMe) {
+        localStorage.setItem('token', token); // Stocke le token dans localStorage
+        localStorage.setItem('userInfo', JSON.stringify(userInfo)); // Stocke les informations utilisateur dans localStorage
+      } else {
+        sessionStorage.setItem('token', token); // Stocke le token dans sessionStorage
+        sessionStorage.setItem('userInfo', JSON.stringify(userInfo)); // Stocke les informations utilisateur dans sessionStorage
+      }
       navigate('/Profile'); // Redirection vers la page de profil après une connexion réussie
     } catch (err) {
       setError(err.message);
@@ -48,7 +58,10 @@ const Login = () => {
           />
         </div>
         <div className="input-remember">
-          <input type="checkbox" id="remember-me" />
+          <input type="checkbox"
+            id="remember-me"
+            checked={rememberMe}
+            onChange={(e) => setRememberMe(e.target.checked)} />
           <label htmlFor="remember-me">Remember me</label>
         </div>
         <button className="sign-in-button" type="submit">Se connecter</button>
