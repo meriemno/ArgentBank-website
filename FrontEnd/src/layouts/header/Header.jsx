@@ -21,7 +21,7 @@ function Header() {
     localStorage.removeItem('userInfo');
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('userInfo');
-    //localStorage.setItem('logout', Date.now());
+    localStorage.setItem('logout', Date.now());
     navigate('/SignIn');
   }
 

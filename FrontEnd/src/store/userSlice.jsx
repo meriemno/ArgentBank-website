@@ -42,6 +42,9 @@ const userSlice = createSlice({
     extraReducers: (builder) => {
       builder.addCase(updateUser.fulfilled, (state, action) => {
         state.userInfo = { ...state.userInfo, userName: action.payload.userName }; // Mettre à jour le username de l'utilisateur
+        localStorage.setItem('userInfo', JSON.stringify(state.userInfo)); // Mise à jour de localStorage
+        // Notifier les autres onglets
+        localStorage.setItem('updateUser', Date.now());
       });
     },
 });
