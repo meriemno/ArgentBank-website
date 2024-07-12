@@ -17,8 +17,14 @@ function Header() {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    localStorage.removeItem('token');
+    localStorage.removeItem('userInfo');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('userInfo');
+    //localStorage.setItem('logout', Date.now());
     navigate('/SignIn');
-  };
+  }
+
 
   return (
     <nav className="main-nav">

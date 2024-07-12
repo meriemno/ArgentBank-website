@@ -7,18 +7,20 @@ import { loginSuccess } from '../../store/userSlice';
 import './profile.css';
 import FormEdit from '../../composants/FormEdit/FormEdit';
 import AccountCard from '../../composants/account/AccountCard';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { logout } from '../../store/userSlice';
 
 function Profile() {
 
    
-
 
     return (
         <>
             <Header />
             <main className="main bg-dark">
                 <FormEdit />
-                <div className="account-card-container">
+                <div>
                 <AccountCard />
                 </div>
             </main>

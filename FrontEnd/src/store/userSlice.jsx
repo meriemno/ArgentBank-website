@@ -32,6 +32,7 @@ const userSlice = createSlice({
       state.isAuthenticated = true;
     },
     logout: (state) => {
+      console.log('logout action received', state);
       state.userInfo = null;
       state.token = null;
       state.isAuthenticated = false;
