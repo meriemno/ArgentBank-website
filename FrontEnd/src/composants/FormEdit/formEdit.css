@@ -11,19 +11,19 @@
     margin-bottom: 1em;
     display: flex;
     flex-direction: column;
-
+    
   }
   
   .edit-button {
     margin-right: 1em;
     border-radius: 5px;
     height: 60px;
-    width: 20%;
+    /* width: 20%; */
     border: none;
     cursor: pointer;
   }
   .edit-form {
-    width: 700px;
+    /* width: 700px; */
     margin-inline:auto;
     
   }
@@ -38,7 +38,7 @@
   .input-style{
     border: none;
     border-radius: 5px;
-    width: 20%;
+    width: 30%;
     height: 30px;
   }
   
