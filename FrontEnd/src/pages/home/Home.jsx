@@ -6,8 +6,23 @@ import Features from "../../composants/features/Features"
 import iconChat from "../../images/icon-chat.webp"
 import iconMoney from "../../images/icon-money.webp"
 import iconSecurity from "../../images/icon-security.webp"
+import { useDispatch } from "react-redux"
+import { loginSuccess } from "../../store/userSlice"
+import { useEffect } from "react"
 
 function Home() {
+    const dispatch = useDispatch();
+
+useEffect(() => {
+    // Récupération du token et des informations utilisateur depuis localStorage ou sessionStorage
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    const userInfo = localStorage.getItem('userInfo') || sessionStorage.getItem('userInfo');
+
+    // Si le token et les informations utilisateur existent, dispatch de l'action loginSuccess
+    if (token && userInfo) {
+        dispatch(loginSuccess({ token, userInfo: JSON.parse(userInfo) }));
+    }
+}, [dispatch]);
 
     return (
         <>

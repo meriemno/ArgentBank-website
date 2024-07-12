@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import store from './store/store.jsx';
 import Erreur from './pages/erreur/Erreur.jsx';
 import Profile from './pages/user/Profile.jsx';
+import { loginSuccess } from './store/userSlice';
+import { useDispatch,useEffect } from 'react';
 
 
 

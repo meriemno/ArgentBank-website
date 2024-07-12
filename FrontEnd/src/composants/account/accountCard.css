@@ -1,0 +1,36 @@
+.account-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    cursor: pointer;
+    width: 80%;
+    margin-inline:auto
+  }
+  
+  .account-card-header {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 5px;
+  }
+    
+  .account-balance {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .account-balance-label {
+    font-size: 14px;
+  }
+  
+  .account-card-footer i {
+    font-size: 18px;
+  }
+  

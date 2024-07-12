@@ -6,22 +6,11 @@ import Header from '../../layouts/header/Header';
 import { loginSuccess } from '../../store/userSlice';
 import './profile.css';
 import FormEdit from '../../composants/FormEdit/FormEdit';
+import AccountCard from '../../composants/account/AccountCard';
 
 function Profile() {
 
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        // Récupération du token et des informations utilisateur depuis localStorage ou sessionStorage
-        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-        const userInfo = localStorage.getItem('userInfo') || sessionStorage.getItem('userInfo');
-
-        // Si le token et les informations utilisateur existent, dispatch de l'action loginSuccess
-        if (token && userInfo) {
-            dispatch(loginSuccess({ token, userInfo: JSON.parse(userInfo) }));
-        }
-    }, [dispatch]);
-
+   
 
 
     return (
@@ -29,6 +18,9 @@ function Profile() {
             <Header />
             <main className="main bg-dark">
                 <FormEdit />
+                <div className="account-card-container">
+                <AccountCard />
+                </div>
             </main>
             <Footer />
         </>
