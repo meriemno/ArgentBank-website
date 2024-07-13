@@ -22,7 +22,7 @@ function Header() {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('userInfo');
     localStorage.setItem('logout', Date.now());
-    navigate('/SignIn');
+    navigate('/login');
   }
 
 
@@ -40,14 +40,14 @@ function Header() {
         {isAuthenticated ? (
           <div> 
             <i className="fa fa-user-circle"></i>
-            <Link className="main-nav-item " to="/Profile" >{userInfo?.userName} </Link>
+            <Link className="main-nav-item " to="/profile" >{userInfo?.userName} </Link>
             <Link className="main-nav-item" onClick={handleLogout}>
               <i className="fa fa-sign-out"></i>
               Sign Out
             </Link>
           </div>
         ) : (
-          <Link className="main-nav-item" to="/SignIn">
+          <Link className="main-nav-item" to="/login">
             <i className="fa fa-user-circle"></i>
             Sign In
           </Link>

@@ -28,7 +28,7 @@ const Login = () => {
         sessionStorage.setItem('token', token); // Stocke le token dans sessionStorage
         sessionStorage.setItem('userInfo', JSON.stringify(userInfo)); // Stocke les informations utilisateur dans sessionStorage
       }
-      navigate('/Profile'); // Redirection vers la page de profil après une connexion réussie
+      navigate('/profile'); // Redirection vers la page de profil après une connexion réussie
     } catch (err) {
       setError(err.message);
     }
@@ -39,6 +39,7 @@ const Login = () => {
       <i className="fa fa-user-circle sign-in-icon"></i>
       <h1>Sign In</h1>
       <form onSubmit={handleLogin}>
+      {error && <p className="error-message">{error}</p>}
         <div className="input-wrapper">
           <label htmlFor="username">Username</label>
           <input
@@ -64,8 +65,8 @@ const Login = () => {
             onChange={(e) => setRememberMe(e.target.checked)} />
           <label htmlFor="remember-me">Remember me</label>
         </div>
-        <button className="sign-in-button" type="submit">Se connecter</button>
-        {error && <p>{error}</p>}
+        <button className="sign-in-button" type="submit">Sign in</button>
+        
       </form>
     </div>
   );

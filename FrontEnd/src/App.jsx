@@ -5,7 +5,7 @@ import Profile from './pages/user/Profile.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { loginSuccess, logout } from './store/userSlice';
-import { useNavigate } from 'react-router-dom';
+import Erreur from './pages/erreur/Erreur.jsx';
 
 
 function App() {
@@ -54,11 +54,10 @@ function App() {
         
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="*" element={<Home />} />
-                    <Route path="/SignIn" element={<SignIn />} />
-                    <Route path="/Profile" element={<Profile />} />
-
+                    <Route path="/" element={<Home />} />                   
+                    <Route path="/login" element={<SignIn />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="*" element={<Erreur />} />
 
 
                 </Routes>

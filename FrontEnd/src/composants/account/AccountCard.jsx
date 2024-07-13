@@ -1,18 +1,18 @@
 import React from 'react';
 import './accountCard.css';
 
-const AccountCard = () => {
+const AccountCard = ({title,amount,text}) => {
   return (
     <div className="account-card">
       <div className="account-card-header">
-        Argent Bank Checking (x3448)
+        {title}
 
 
-        <div className="account-balance">$48,098.43</div>
-        <div className="account-balance-label">Available balance</div>
+        <div className="account-balance">{amount}</div>
+        <div className="account-balance-label">{text}</div>
       </div>
       <div className="account-card-footer">
-        <i className="fa fa-chevron-right"></i>
+        <button className="transaction-button">View transactions</button>
       </div>
     </div>
   );

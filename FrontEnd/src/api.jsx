@@ -22,7 +22,7 @@ export const loginUser = async (username, password) => {
     }
   } catch (error) {
     console.error('API call error:', error.message);
-    throw new Error('Nom d\'utilisateur ou mot de passe incorrect');
+    throw new Error('Username or password incorrect');
   }
 };
 

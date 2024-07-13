@@ -19,10 +19,10 @@ function FormEdit() {
   useEffect(() => {
     if (!isAuthenticated) {
       console.log('User not authenticated');
-      navigate('/SignIn');
+      navigate('/login');
     }
     else {
-      navigate('/Profile');
+      navigate('/profile');
     }
   }, [isAuthenticated, navigate]);
 
@@ -99,7 +99,7 @@ function FormEdit() {
         </div>
       ) : (
         <div>
-          <button className="edit-button" type="button" onClick={handleEditClick}>Edit Username</button>
+          <button className="edit-button" type="button" onClick={handleEditClick}>Edit </button>
         </div>
       )}
 

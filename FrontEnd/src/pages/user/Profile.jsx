@@ -20,9 +20,14 @@ function Profile() {
             <Header />
             <main className="main bg-dark">
                 <FormEdit />
-                <div>
-                <AccountCard />
-                </div>
+                
+                <AccountCard 
+                title="Argent Bank Checking (x8349)" amount="$2,082.79" text="Available Balance"/>
+                <AccountCard 
+                title="Argent Bank Savings (x6712)" amount="$10,928.42" text="Available Balance"/>
+                <AccountCard 
+                title="Argent Bank Credit Card (x8349)" amount="$184.30" text="Current Balance"/>
+               
             </main>
             <Footer />
         </>
