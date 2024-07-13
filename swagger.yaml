@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
-  title: Documentation de l'API Bank Argent
-  description: Contient tous les endpoints API disponibles dans ce codebase
+  title: Bank Argent API Documentation
+  description: Contains all available API endpoints in this codebase
   version: '1.0.0'
   termsOfService: 'http://swagger.io/terms/'
 host: localhost:3001
@@ -12,13 +12,13 @@ paths:
   /user/login:
     post:
       tags:
-        - Module Utilisateur
-      summary: Connexion
-      description: API pour la connexion
+        - User Module
+      summary: Login
+      description: API for user login
       parameters:
         - in: body
           name: body
-          description: Charge utile de connexion
+          description: Login payload
           required: true
           schema:
             $ref: '#/definitions/Login'
@@ -26,23 +26,23 @@ paths:
         - application/json
       responses:
         '200':
-          description: Connexion réussie
+          description: Successful login
           schema:
             $ref: '#/definitions/LoginResponse'
         '400':
-          description: Champs invalides
+          description: Invalid fields
         '500':
-          description: Erreur interne du serveur
+          description: Internal server error
   /user/signup:
     post:
       tags:
-        - Module Utilisateur
-      summary: Inscription
-      description: API pour l'inscription
+        - User Module
+      summary: Signup
+      description: API for user signup
       parameters:
         - in: body
           name: body
-          description: Charge utile d'inscription
+          description: Signup payload
           required: true
           schema:
             $ref: '#/definitions/User'
@@ -50,41 +50,41 @@ paths:
         - application/json
       responses:
         '200':
-          description: Inscription réussie
+          description: Successful signup
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
-          description: Champs invalides
+          description: Invalid fields
         '500':
-          description: Erreur interne du serveur
+          description: Internal server error
   /user/profile:
     post:
       security:
         - Bearer: []
       tags:
-        - Module Utilisateur
-      summary: API de Profil Utilisateur
-      description: API pour récupérer le profil utilisateur
+        - User Module
+      summary: User Profile API
+      description: API to retrieve user profile
       responses:
         '200':
-          description: Profil utilisateur récupéré avec succès
+          description: Successfully retrieved user profile
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
-          description: Champs invalides
+          description: Invalid fields
         '500':
-          description: Erreur interne du serveur
+          description: Internal server error
     put:
       security:
         - Bearer: []
       tags:
-        - Module Utilisateur
-      summary: API de Profil Utilisateur
-      description: API pour mettre à jour le profil utilisateur
+        - User Module
+      summary: User Profile API
+      description: API to update user profile
       parameters:
         - in: body
           name: body
-          description: Mettre à jour les attributs du profil utilisateur
+          description: Update user profile attributes
           required: true
           schema:
             $ref: '#/definitions/UserProfile'
@@ -92,137 +92,91 @@ paths:
         - application/json
       responses:
         '200':
-          description: Profil utilisateur mis à jour avec succès
+          description: Successfully updated user profile
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
-          description: Champs invalides
+          description: Invalid fields
         '500':
-          description: Erreur interne du serveur
-  /transactions:
+          description: Internal server error
+  /user/profile/transactions/{accountId}:
     get:
+      security:
+        - Bearer: []
       tags:
-        - Module Transactions
-      summary: Récupérer toutes les transactions
-      description: Récupérer toutes les transactions pour le mois en cours, groupées par compte
+        - Transactions Module
+      summary: Retrieve all transactions
+      description: Retrieve all transactions for the current month, grouped by account
       parameters:
         - name: accountId
-          in: query
-          description: Filtrer les transactions par ID de compte
-          required: false
+          in: path
+          description: Filter transactions by account ID
+          required: true
           type: string
       responses:
         '200':
-          description: Opération réussie
+          description: Operation successful
           schema:
             type: array
             items:
               $ref: '#/definitions/Transaction'
         '400':
-          description: Paramètre de requête invalide
+          description: Invalid query parameter
         '500':
-          description: Erreur du serveur
+          description: Server error
   /transactions/{transactionId}:
     get:
+      security:
+        - Bearer: []
       tags:
-        - Module Transactions
-      summary: Récupérer les détails d'une transaction
-      description: Récupérer les informations détaillées pour une transaction spécifique
+        - Transactions Module
+      summary: Retrieve transaction details
+      description: Retrieve detailed information for a specific transaction
       parameters:
         - name: transactionId
           in: path
-          description: L'ID de la transaction
+          description: The ID of the transaction
           required: true
           type: string
       responses:
         '200':
-          description: Détails de la transaction récupérés avec succès
+          description: Successfully retrieved transaction details
           schema:
             $ref: '#/definitions/TransactionDetails'
         '404':
-          description: Transaction non trouvée
+          description: Transaction not found
         '500':
-          description: Erreur du serveur
-   
-      tags:
-        - Module Transactions
-      summary: Mettre à jour une transaction
-      description: Mettre à jour les informations d'une transaction spécifique
-      parameters:
-        - name: transactionId
-          in: path
-          description: L'ID de la transaction
-          required: true
-          type: string
-        - in: body
-          name: body
-          description: Les nouvelles données de la transaction
-          required: true
-          schema:
-            $ref: '#/definitions/TransactionUpdate'
-      responses:
-        '200':
-          description: Transaction mise à jour avec succès
-        '400':
-          description: Données d'entrée invalides
-        '404':
-          description: Transaction non trouvée
-        '500':
-          description: Erreur du serveur
-  /transactions/{transactionId}/note:
-    post:
-      tags:
-        - Module Transactions
-      summary: Ajouter une note à une transaction
-      description: Ajouter une note à une transaction spécifique
-      parameters:
-        - name: transactionId
-          in: path
-          description: L'ID de la transaction
-          required: true
-          type: string
-        - in: body
-          name: body
-          description: Les données de la note
-          required: true
-          schema:
-            $ref: '#/definitions/Note'
-      responses:
-        '201':
-          description: Note ajoutée avec succès
-        '400':
-          description: Données d'entrée invalides
-        '404':
-          description: Transaction non trouvée
-        '500':
-          description: Erreur du serveur
-  /transactions/{transactionId}/category:
+          description: Server error
     put:
+      security:
+        - Bearer: []
       tags:
-        - Module Transactions
-      summary: Modifier la catégorie d'une transaction
-      description: Mettre à jour la catégorie d'une transaction spécifique
+        - Transactions Module
+      summary: Update a transaction
+      description: Update the information of a specific transaction
       parameters:
         - name: transactionId
           in: path
-          description: L'ID de la transaction
+          description: The ID of the transaction
           required: true
           type: string
         - in: body
           name: body
-          description: Les nouvelles données de la catégorie
+          description: The new transaction data
           required: true
           schema:
-            $ref: '#/definitions/Category'
+            $ref: '#/definitions/TransactionDetails'
       responses:
         '200':
-          description: Catégorie mise à jour avec succès
+          description: Successfully updated transaction
+          schema:
+            $ref: '#/definitions/TransactionDetails'
         '400':
-          description: Données d'entrée invalides
+          description: Invalid input data
         '404':
-          description: Transaction non trouvée
+          description: Transaction not found
         '500':
-          description: Erreur du serveur
+          description: Server error
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -233,27 +187,27 @@ definitions:
     properties:
       email:
         type: string
-        description: email de l'utilisateur
+        description: User email
       password:
         type: string
-        description: mot de passe de l'utilisateur
+        description: User password
       firstName:
         type: string
-        description: prénom de l'utilisateur
+        description: User's first name
       lastName:
         type: string
-        description: nom de famille de l'utilisateur
+        description: User's last name
       userName:
         type: string
-        description: nom public de l'utilisateur
+        description: User's public name
   Login:
     properties:
       email:
         type: string
-        description: email de l'utilisateur
+        description: User email
       password:
         type: string
-        description: mot de passe de l'utilisateur
+        description: User password
   ApiResponse:
     type: object
     properties:
@@ -281,6 +235,8 @@ definitions:
   Transaction:
     type: object
     properties:
+      transactionId:
+        type: string
       date:
         type: string
         format: date
@@ -298,29 +254,10 @@ definitions:
         type: string
   TransactionDetails:
     type: object
-    properties:
-      date:
-        type: string
-        format: date
-      description:
-        type: string
-      amount:
-        type: number
-      balance:
-        type: number
+    properties:      
       transactionType:
         type: string
       category:
         type: string
       note:
-        type: string
-  Note:
-    type: object
-    properties:
-      note:
-        type: string
-  Category:
-    type: object
-    properties:
-      category:
         type: string

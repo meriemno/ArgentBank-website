@@ -1,5 +1,6 @@
 import React from 'react';
 import './accountCard.css';
+import PropTypes from 'prop-types';
 
 const AccountCard = ({title,amount,text}) => {
   return (
@@ -8,7 +9,7 @@ const AccountCard = ({title,amount,text}) => {
         {title}
 
 
-        <div className="account-balance">{amount}</div>
+        <div className="account-balance">${amount}</div>
         <div className="account-balance-label">{text}</div>
       </div>
       <div className="account-card-footer">
@@ -18,4 +19,9 @@ const AccountCard = ({title,amount,text}) => {
   );
 };
 
+AccountCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  amount: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+}
 export default AccountCard;

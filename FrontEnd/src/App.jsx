@@ -11,7 +11,7 @@ import Erreur from './pages/erreur/Erreur.jsx';
 function App() {
     const dispatch = useDispatch();
     
-    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+    
   
     useEffect(() => {
       // Récupération du token et des informations utilisateur depuis localStorage ou sessionStorage
@@ -41,14 +41,7 @@ function App() {
       };
     }, [dispatch]);
   
-    if (!isAuthenticated) {
-       dispatch(logout());
-        
-    }
   
-
-
-
 
     return (
         

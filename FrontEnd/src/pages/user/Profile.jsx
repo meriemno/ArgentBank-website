@@ -13,7 +13,17 @@ import { logout } from '../../store/userSlice';
 
 function Profile() {
 
-   
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user = useSelector((state) => state.user);
+
+    useEffect(() => {
+        if (!user.isAuthenticated) {
+            navigate('/login');
+        }else{
+            navigate('/profile');
+        }
+    }, [user.isAuthenticated, navigate]);
 
     return (
         <>
@@ -22,11 +32,11 @@ function Profile() {
                 <FormEdit />
                 
                 <AccountCard 
-                title="Argent Bank Checking (x8349)" amount="$2,082.79" text="Available Balance"/>
+                title="Argent Bank Checking (x8349)" amount="2,082.79" text="Available Balance"/>
                 <AccountCard 
-                title="Argent Bank Savings (x6712)" amount="$10,928.42" text="Available Balance"/>
+                title="Argent Bank Savings (x6712)" amount="10,928.42" text="Available Balance"/>
                 <AccountCard 
-                title="Argent Bank Credit Card (x8349)" amount="$184.30" text="Current Balance"/>
+                title="Argent Bank Credit Card (x8349)" amount="184.30" text="Current Balance"/>
                
             </main>
             <Footer />
