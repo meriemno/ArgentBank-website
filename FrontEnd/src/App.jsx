@@ -9,52 +9,54 @@ import Erreur from './pages/erreur/Erreur.jsx';
 
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // Récupération du token et des informations utilisateur depuis localStorage ou sessionStorage
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    const userInfo = localStorage.getItem('userInfo') || sessionStorage.getItem('userInfo');
-
-    // Si le token et les informations utilisateur existent, dispatch de l'action loginSuccess
-    if (token && userInfo) {
-      dispatch(loginSuccess({ token, userInfo: JSON.stringify(userInfo) }));
-    } else {
-      // Rediriger l'utilisateur vers la page de connexion s'il n'est pas authentifié
-      dispatch(logout());
-    }
-
-    // Écouteur pour l'événement de déconnexion
-    const handleStorageChange = (event) => {
-      if (event.key === 'logout') {
+    const dispatch = useDispatch();
+    
+    
+  
+    useEffect(() => {
+      // Récupération du token et des informations utilisateur depuis localStorage ou sessionStorage
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+      const userInfo = localStorage.getItem('userInfo') || sessionStorage.getItem('userInfo');
+  
+      // Si le token et les informations utilisateur existent, dispatch de l'action loginSuccess
+      if (token && userInfo) {
+        dispatch(loginSuccess({ token, userInfo: JSON.parse(userInfo) }));
+      } else {
+        // Rediriger l'utilisateur vers la page de connexion s'il n'est pas authentifié
         dispatch(logout());
-
       }
-    };
+  
+      // Écouteur pour l'événement de déconnexion
+      const handleStorageChange = (event) => {
+        if (event.key === 'logout') {
+          dispatch(logout());
+          
+        }
+      };
+  
+      window.addEventListener('storage', handleStorageChange);
+  
+      return () => {
+        window.removeEventListener('storage', handleStorageChange);
+      };
+    }, [dispatch]);
+  
+  
 
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, [dispatch]);
-
-
-
-  return (
-
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<SignIn />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="*" element={<Erreur />} />
+    return (
+        
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Home />} />                   
+                    <Route path="/login" element={<SignIn />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="*" element={<Erreur />} />
 
 
-      </Routes>
-    </BrowserRouter>
-
-  );
+                </Routes>
+            </BrowserRouter>
+       
+    );
 }
 
 export default App;
