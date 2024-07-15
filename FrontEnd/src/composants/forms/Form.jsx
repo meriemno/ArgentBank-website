@@ -37,7 +37,7 @@ const Login = () => {
   return (
     <div className="sign-in-content">
       <i className="fa fa-user-circle sign-in-icon"></i>
-      <h1>Sign In</h1>
+      <h1 className="sign-in-title">Sign In</h1>
       <form onSubmit={handleLogin}>
       {error && <p className="error-message">{error}</p>}
         <div className="input-wrapper">

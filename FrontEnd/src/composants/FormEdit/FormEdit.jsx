@@ -16,7 +16,7 @@ function FormEdit() {
   const [isEditing, setIsEditing] = useState(false);
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
-
+// redirige l'utilisateur vers la page de profil s'il est connecté
   useEffect(() => {
     if (!isAuthenticated) {
       console.log('User not authenticated');
@@ -26,7 +26,7 @@ function FormEdit() {
       navigate('/profile');
     }
   }, [isAuthenticated, navigate]);
-
+// Met à jour le nom d'utilisateur local lorsque userInfo change
   useEffect(() => {
     if (userInfo) {
       setNewUsername(userInfo.userName);

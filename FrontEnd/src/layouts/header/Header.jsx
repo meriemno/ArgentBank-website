@@ -21,7 +21,7 @@ function Header() {
     localStorage.removeItem('userInfo');
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('userInfo');
-    localStorage.setItem('logout', Date.now());
+    localStorage.setItem('logout', Date.now());// stocke la date du logout :synchronisation logout dans les onglets
     navigate('/login');
   }
 
