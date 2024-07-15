@@ -1,6 +1,6 @@
 // src/reducers/userSlice.jsx
 import { createSlice } from '@reduxjs/toolkit';
-import { updateUsername } from '../api';
+import { updateUsername, loginUser, getUserProfile } from '../api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 
@@ -9,6 +9,17 @@ const initialState = {
   token: null,
   isAuthenticated: false,
 };
+
+// Thunk pour la connexion utilisateur
+export const fetchLogin = createAsyncThunk(
+  'user/fetchLogin',
+  async ({ username, password }) => {
+    const { token } = await loginUser(username, password);
+    const userInfo = await getUserProfile(token);
+    return { token, userInfo };
+  }
+);
+
 
 //update user
 export const updateUser = createAsyncThunk(
@@ -26,27 +37,35 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     loginSuccess: (state, action) => {
-      console.log('loginSuccess action received:', action); // Log pour vérifier l'action
       state.token = action.payload.token;
       state.userInfo = action.payload.userInfo;
       state.isAuthenticated = true;
     },
     logout: (state) => {
-      console.log('logout action received', state);
       state.userInfo = null;
       state.token = null;
       state.isAuthenticated = false;
     },
   },
-    //update username dans le redux
-    extraReducers: (builder) => {
-      builder.addCase(updateUser.fulfilled, (state, action) => {
+  //update username dans le redux
+  extraReducers: (builder) => {
+
+    builder
+      .addCase(updateUser.fulfilled, (state, action) => {
         state.userInfo = { ...state.userInfo, userName: action.payload.userName }; // Mettre à jour le username de l'utilisateur
         localStorage.setItem('userInfo', JSON.stringify(state.userInfo)); // Mise à jour de localStorage
         // Notifier les autres onglets
         localStorage.setItem('updateUser', Date.now());
-      });
-    },
+      })
+
+      .addCase(fetchLogin.fulfilled, (state, action) => {
+        state.token = action.payload.token;
+        state.userInfo = action.payload.userInfo;
+        state.isAuthenticated = true;
+        state.loading = false;
+      })
+  },
+
 });
 
 export const { loginSuccess, logout } = userSlice.actions;

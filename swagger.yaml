@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title: Bank Argent API Documentation
+  title: Bank Argent API documentation
   description: Contains all available API endpoints in this codebase
   version: '1.0.0'
   termsOfService: 'http://swagger.io/terms/'
@@ -14,11 +14,11 @@ paths:
       tags:
         - User Module
       summary: Login
-      description: API for user login
+      description: API for Login
       parameters:
         - in: body
           name: body
-          description: Login payload
+          description: Login Payload
           required: true
           schema:
             $ref: '#/definitions/Login'
@@ -26,23 +26,23 @@ paths:
         - application/json
       responses:
         '200':
-          description: Successful login
+          description: Login Successfully
           schema:
             $ref: '#/definitions/LoginResponse'
         '400':
-          description: Invalid fields
+          description: Invalid Fields
         '500':
-          description: Internal server error
+          description: Internal Server Error
   /user/signup:
     post:
       tags:
         - User Module
       summary: Signup
-      description: API for user signup
+      description: API for Signup
       parameters:
         - in: body
           name: body
-          description: Signup payload
+          description: Signup Payload
           required: true
           schema:
             $ref: '#/definitions/User'
@@ -50,13 +50,13 @@ paths:
         - application/json
       responses:
         '200':
-          description: Successful signup
+          description: Signup Successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
-          description: Invalid fields
+          description: Invalid Fields
         '500':
-          description: Internal server error
+          description: Internal Server Error
   /user/profile:
     post:
       security:
@@ -64,23 +64,25 @@ paths:
       tags:
         - User Module
       summary: User Profile API
-      description: API to retrieve user profile
+      description: API for fetching a user profile
+      #produces:
+       # - application/json
       responses:
         '200':
-          description: Successfully retrieved user profile
+          description: User profile retrieved successully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
-          description: Invalid fields
+          description: Invalid Fields
         '500':
-          description: Internal server error
+          description: Internal Server Error
     put:
       security:
         - Bearer: []
       tags:
         - User Module
       summary: User Profile API
-      description: API to update user profile
+      description: API for updating a user profile
       parameters:
         - in: body
           name: body
@@ -92,91 +94,91 @@ paths:
         - application/json
       responses:
         '200':
-          description: Successfully updated user profile
+          description: User profile retrieved successully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
-          description: Invalid fields
+          description: Invalid Fields
         '500':
-          description: Internal server error
+          description: Internal Server Error
   /user/profile/transactions/{accountId}:
     get:
       security:
         - Bearer: []
       tags:
-        - Transactions Module
-      summary: Retrieve all transactions
-      description: Retrieve all transactions for the current month, grouped by account
+        - Module Transactions
+      summary: Récupérer toutes les transactions
+      description: Récupérer toutes les transactions pour le mois en cours, groupées par compte
       parameters:
         - name: accountId
           in: path
-          description: Filter transactions by account ID
+          description: Filtrer les transactions par ID de compte
           required: true
           type: string
       responses:
         '200':
-          description: Operation successful
+          description: Opération réussie
           schema:
             type: array
             items:
               $ref: '#/definitions/Transaction'
         '400':
-          description: Invalid query parameter
+          description: Paramètre de requête invalide
         '500':
-          description: Server error
+          description: Erreur du serveur
   /transactions/{transactionId}:
     get:
       security:
         - Bearer: []
       tags:
-        - Transactions Module
-      summary: Retrieve transaction details
-      description: Retrieve detailed information for a specific transaction
+        - Module Transactions
+      summary: Récupérer les détails d'une transaction
+      description: Récupérer les informations détaillées pour une transaction spécifique
       parameters:
         - name: transactionId
           in: path
-          description: The ID of the transaction
+          description: L'ID de la transaction
           required: true
           type: string
       responses:
         '200':
-          description: Successfully retrieved transaction details
+          description: Détails de la transaction récupérés avec succès
           schema:
             $ref: '#/definitions/TransactionDetails'
         '404':
-          description: Transaction not found
+          description: Transaction non trouvée
         '500':
-          description: Server error
+          description: Erreur du serveur
     put:
       security:
         - Bearer: []
       tags:
-        - Transactions Module
-      summary: Update a transaction
-      description: Update the information of a specific transaction
+        - Module Transactions
+      summary: Mettre à jour une transaction
+      description: Mettre à jour les informations d'une transaction spécifique
       parameters:
         - name: transactionId
           in: path
-          description: The ID of the transaction
+          description: L'ID de la transaction
           required: true
           type: string
         - in: body
           name: body
-          description: The new transaction data
+          description: Les nouvelles données de la transaction
           required: true
           schema:
-            $ref: '#/definitions/TransactionDetails'
+            $ref: '#/definitions/TransactionUpdate'
       responses:
         '200':
-          description: Successfully updated transaction
+          description: Transaction mise à jour avec succès
           schema:
-            $ref: '#/definitions/TransactionDetails'
+            $ref: '#/definitions/TransactionUpdate'
         '400':
-          description: Invalid input data
+          description: Données d'entrée invalides
         '404':
-          description: Transaction not found
+          description: Transaction non trouvée
         '500':
-          description: Server error
+          description: Erreur du serveur
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -187,27 +189,27 @@ definitions:
     properties:
       email:
         type: string
-        description: User email
+        description: user email
       password:
         type: string
-        description: User password
+        description: user password
       firstName:
         type: string
-        description: User's first name
+        description: user first name
       lastName:
         type: string
-        description: User's last name
+        description: user last name
       userName:
         type: string
-        description: User's public name
+        description: user public name
   Login:
     properties:
       email:
         type: string
-        description: User email
+        description: user email
       password:
         type: string
-        description: User password
+        description: user password
   ApiResponse:
     type: object
     properties:
@@ -261,3 +263,13 @@ definitions:
         type: string
       note:
         type: string
+  TransactionUpdate:
+    type: object
+    properties:
+      category:
+        type: string
+      note:
+        type: string
+
+
+

@@ -6,25 +6,31 @@ const API_URL = 'http://localhost:3001/api/v1';
 export const loginUser = async (username, password) => {
   try {
     const response = await axios.post(`${API_URL}/user/login`, { email: username, password });
-    console.log('API response:', response.data.body.token); // Log pour vérifier la réponse
-    console.log('API response:', response.data.body.firstName); // Log pour vérifier la réponse
     if (response.data && response.data.body) {
       return {
         token: response.data.body.token,
-        userInfo: {
-          firstName: response.data.body.firstName,
-          lastName: response.data.body.lastName,
-          userName: response.data.body.userName,
-        },
+
       };
     } else {
       throw new Error('Invalid response format');
     }
   } catch (error) {
-    console.error('API call error:', error.message);
     throw new Error('Username or password incorrect');
   }
 };
+// Fonction pour récupérer le profil utilisateur depuis le
+// Fonction pour récupérer le profil utilisateur depuis le token
+export const getUserProfile = async (token) => {
+  try {
+    const response = await axios.post(`${API_URL}/user/profile`, {}, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data.body; // Adapter selon le format de la réponse de votre API
+  } catch (error) {
+    throw new Error('Failed to fetch user profile');
+  }
+};
+
 
 export const updateUsername = async (token, userName) => {
   try {

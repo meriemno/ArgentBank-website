@@ -19,7 +19,6 @@ function FormEdit() {
 // redirige l'utilisateur vers la page de profil s'il est connecté
   useEffect(() => {
     if (!isAuthenticated) {
-      console.log('User not authenticated');
       navigate('/login');
     }
     else {
